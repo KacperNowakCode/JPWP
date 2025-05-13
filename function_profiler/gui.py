@@ -41,12 +41,10 @@ class ProfilerGUI(tk.Tk):
         tk.Button(frame, text='Browse', command=self.browse_config).grid(row=1, column=2)
 
         tk.Checkbutton(frame, text='Show Plot', variable=self.plot_var).grid(row=2, column=1, sticky='w')
-        tk.Checkbutton(frame, text='Measure Memory', variable=self.mem_var).grid(row=2, column=2, sticky='w')
 
         tk.Label(frame, text='Export CSV:').grid(row=3, column=0)
         tk.Entry(frame, textvariable=self.csv_var, width=30).grid(row=3, column=1)
-        tk.Label(frame, text='Export HTML:').grid(row=4, column=0)
-        tk.Entry(frame, textvariable=self.html_var, width=30).grid(row=4, column=1)
+
 
         tk.Button(frame, text='Run Profiling', command=self.run_profiling).grid(row=5, column=1, pady=5)
 
@@ -117,7 +115,7 @@ class ProfilerGUI(tk.Tk):
         if self.plot_var.get() and results:
             plot_results(results)
         if self.csv_var.get() or self.html_var.get():
-            export_results(results, self.csv_var.get() or None, self.html_var.get() or None)
+            export_results(results, self.csv_var.get()+".csv" or None, self.html_var.get() or None)
 
 if __name__ == '__main__':
     ProfilerGUI().mainloop()

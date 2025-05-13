@@ -1,19 +1,41 @@
 import matplotlib.pyplot as plt
 import csv
 import json
-
+import seaborn as sns
 
 def plot_results(results, output_file=None):
+    sns.set_theme(style="whitegrid")  
     names, times = zip(*results.items())
-    plt.figure()
-    plt.bar(names, times)
-    plt.xticks(rotation=45, ha='right')
-    plt.title('Profiling Times (ms)')
+
+    plt.figure(figsize=(10, 6))
+    bars = plt.bar(names, times, color=sns.color_palette("pastel"))
+
+    plt.yscale('log')
+    plt.ylabel('Czas wykonania (ms, skala log)', fontsize=12)
+    plt.title('Porównanie czasów wykonania operacji', fontsize=14, weight='bold')
+    plt.xticks(rotation=35, ha='right', fontsize=10)
+    plt.yticks(fontsize=10)
+
+    for bar in bars:
+        height = bar.get_height()
+        plt.text(
+            bar.get_x() + bar.get_width() / 2,
+            height,
+            f'{height:.1f}',
+            ha='center',
+            va='bottom',
+            fontsize=9,
+            rotation=0
+        )
+
     plt.tight_layout()
+
     if output_file:
-        plt.savefig(output_file)
+        plt.savefig(output_file, dpi=300, bbox_inches='tight')
     else:
         plt.show()
+
+
 
 
 def export_results(results, csv_file=None, html_file=None):
@@ -23,10 +45,3 @@ def export_results(results, csv_file=None, html_file=None):
             writer.writerow(['Function','Time_ms'])
             for k,v in results.items():
                 writer.writerow([k, f"{v:.2f}"])
-    if html_file:
-        html = ['<table border="1"><tr><th>Function</th><th>Time (ms)</th></tr>']
-        for k,v in results.items():
-            html.append(f"<tr><td>{k}</td><td>{v:.2f}</td></tr>")
-        html.append('</table>')
-        with open(html_file,'w') as f:
-            f.write(''.join(html))

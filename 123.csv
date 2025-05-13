@@ -1,0 +1,7 @@
+Function,Time_ms
+bubble_sort,968.78
+builtin_sort,0.84
+heap_sort,13.86
+insertion_sort,516.93
+merge_sort,10.66
+quick_sort,7.25

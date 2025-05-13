@@ -16,16 +16,16 @@ def measure_time(func):
         return result
     return wrapper
 
-def measure_memory(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        mem_before = memory_usage()[0]
-        result = func(*args, **kwargs)
-        mem_after = memory_usage()[0]
-        delta = mem_after - mem_before
-        log_entry = f"{datetime.now()}: {func.__name__} memory delta {delta:.2f} MiB"
-        print(log_entry)
-        with open("profiling_log.txt", "a") as f:
-            f.write(log_entry + "\n")
-        return result
-    return wrapper
+# def measure_memory(func):
+#     @wraps(func)
+#     def wrapper(*args, **kwargs):
+#         mem_before = memory_usage()[0]
+#         result = func(*args, **kwargs)
+#         mem_after = memory_usage()[0]
+#         delta = mem_after - mem_before
+#         log_entry = f"{datetime.now()}: {func.__name__} memory delta {delta:.2f} MiB"
+#         print(log_entry)
+#         with open("profiling_log.txt", "a") as f:
+#             f.write(log_entry + "\n")
+#         return result
+#     return wrapper

@@ -11,7 +11,7 @@ class FunctionLoader:
         spec.loader.exec_module(module)
         funcs = {}
         for name, attr in inspect.getmembers(module, inspect.isfunction):
-            if attr.__module__ == module_name:
+            if attr.__module__ == module_name and not name.startswith('_'):
                 funcs[name] = attr
         return funcs
 
