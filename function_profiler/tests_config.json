@@ -1,0 +1,9 @@
+{
+  "tests": [
+    { "function": "bubble_sort",       "size": 5000 },
+    { "function": "quick_sort",        "size": 50000 },
+    { "function": "quick_sort_random", "size": 50000 },
+    { "function": "builtin_sort",      "size": 50000 },
+    { "function": "read_large_file" }
+  ]
+}
