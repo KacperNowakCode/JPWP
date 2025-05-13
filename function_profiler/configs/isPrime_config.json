@@ -1,0 +1,6 @@
+{
+    "tests": [
+        { "function": "find_primes_trial_division", "size": 100000},
+        {"function": "find_primes_sieve", "size": 1000000}
+    ]
+}

@@ -1,0 +1,2 @@
+2025-05-13 17:40:01.926726: find_primes_sieve executed in 77.23 ms
+2025-05-13 17:40:02.121676: find_primes_trial_division executed in 105.63 ms
