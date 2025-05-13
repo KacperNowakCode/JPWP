@@ -11,6 +11,7 @@ from memory_profiler import memory_usage
 sys.path.append(os.path.dirname(__file__))
 from loader import FunctionLoader
 from plotter import plot_results, export_results
+from decorators import measure_time  # Import the time decorator
 
 class ProfilerGUI(tk.Tk):
     def __init__(self):
@@ -18,7 +19,6 @@ class ProfilerGUI(tk.Tk):
         self.title('Extended Function Profiler')
         self.geometry('900x700')
 
-        
         self.filepath = tk.StringVar()
         self.configpath = tk.StringVar()
         self.plot_var = tk.BooleanVar()
@@ -45,7 +45,6 @@ class ProfilerGUI(tk.Tk):
         tk.Label(frame, text='Export CSV:').grid(row=3, column=0)
         tk.Entry(frame, textvariable=self.csv_var, width=30).grid(row=3, column=1)
 
-
         tk.Button(frame, text='Run Profiling', command=self.run_profiling).grid(row=5, column=1, pady=5)
 
         tk.Label(self, text='Results:').pack(anchor='w', padx=10)
@@ -53,12 +52,12 @@ class ProfilerGUI(tk.Tk):
         self.text_area.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
 
     def browse_file(self):
-        filepath = filedialog.askopenfilename(filetypes=[('Python Files','*.py')])
+        filepath = filedialog.askopenfilename(filetypes=[('Python Files', '*.py')])
         if filepath:
             self.filepath.set(filepath)
 
     def browse_config(self):
-        configfile = filedialog.askopenfilename(filetypes=[('JSON Files','*.json')])
+        configfile = filedialog.askopenfilename(filetypes=[('JSON Files', '*.json')])
         if configfile:
             self.configpath.set(configfile)
 
@@ -66,7 +65,7 @@ class ProfilerGUI(tk.Tk):
         pyf = self.filepath.get()
         cfg = self.configpath.get()
         if not os.path.isfile(pyf):
-            messagebox.showerror('Error','Select a valid Python file')
+            messagebox.showerror('Error', 'Select a valid Python file')
             return
 
         funcs = FunctionLoader.load_functions_from_file(pyf)
@@ -78,11 +77,12 @@ class ProfilerGUI(tk.Tk):
         results = {}
 
         for name, func in funcs.items():
-            
+            # Apply the time_decorator dynamically
+            decorated_func = measure_time(func)
+
             sig = inspect.signature(func)
             needs_arg = len(sig.parameters) > 0
 
-            
             data = None
             for t in tests:
                 if t.get('function') == name:
@@ -90,19 +90,20 @@ class ProfilerGUI(tk.Tk):
                     population = max(size * 10, size)
                     data = random.sample(range(population), size)
 
-            start_time = time.time()
+            if needs_arg:
+                result = decorated_func(data or [])
+            else:
+                result = decorated_func()
+
+            elapsed_time = result['time']  # Extract elapsed time from the decorator's output
+            mem_delta = None
+
             if self.mem_var.get():
                 mem_before = memory_usage()[0]
-
-            if needs_arg:
-                result = func(data or [])
-            else:
-                result = func()
-
-            elapsed_time = (time.time() - start_time) * 1000
-
-            mem_delta = None
-            if self.mem_var.get():
+                if needs_arg:
+                    func(data or [])
+                else:
+                    func()
                 mem_after = memory_usage()[0]
                 mem_delta = mem_after - mem_before
 
@@ -115,8 +116,8 @@ class ProfilerGUI(tk.Tk):
         if self.plot_var.get() and results:
             plot_results(results)
         if self.csv_var.get() or self.html_var.get():
-            export_results(results, self.csv_var.get()+".csv" or None, self.html_var.get() or None)
+            export_results(results, self.csv_var.get() + ".csv" or None, self.html_var.get() or None)
+
 
 if __name__ == '__main__':
     ProfilerGUI().mainloop()
-
