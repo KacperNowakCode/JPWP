@@ -2,16 +2,14 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, scrolledtext
 import os
 import random
-import time
-import asyncio
 import sys
 import inspect
-from memory_profiler import memory_usage
+
 
 sys.path.append(os.path.dirname(__file__))
 from loader import FunctionLoader
 from plotter import plot_results, export_results
-from decorators import measure_time  # Import the time decorator
+from decorators import measure_time  
 
 class ProfilerGUI(tk.Tk):
     def __init__(self):
@@ -22,7 +20,6 @@ class ProfilerGUI(tk.Tk):
         self.filepath = tk.StringVar()
         self.configpath = tk.StringVar()
         self.plot_var = tk.BooleanVar()
-        self.mem_var = tk.BooleanVar()
         self.csv_var = tk.StringVar()
         self.html_var = tk.StringVar()
 
@@ -77,7 +74,7 @@ class ProfilerGUI(tk.Tk):
         results = {}
 
         for name, func in funcs.items():
-            # Apply the time_decorator dynamically
+            
             decorated_func = measure_time(func)
 
             sig = inspect.signature(func)
@@ -95,23 +92,11 @@ class ProfilerGUI(tk.Tk):
             else:
                 result = decorated_func()
 
-            elapsed_time = result['time']  # Extract elapsed time from the decorator's output
-            mem_delta = None
+            elapsed_time = result['time']  
 
-            if self.mem_var.get():
-                mem_before = memory_usage()[0]
-                if needs_arg:
-                    func(data or [])
-                else:
-                    func()
-                mem_after = memory_usage()[0]
-                mem_delta = mem_after - mem_before
 
             results[name] = elapsed_time
             line = f"{name}: {elapsed_time:.2f} ms"
-            if mem_delta is not None:
-                line += f", {mem_delta:.2f} MiB"
-            self.text_area.insert(tk.END, line + "\n")
 
         if self.plot_var.get() and results:
             plot_results(results)

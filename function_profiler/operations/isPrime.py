@@ -1,7 +1,3 @@
-import math
-import sys
-from decorators import measure_time
-
 def _is_prime_trial(num):
     if num < 2:
         return False
@@ -16,7 +12,7 @@ def _is_prime_trial(num):
         i += 2
     return True
 
-@measure_time
+
 def find_primes_trial_division(input_list):
 
     n = len(input_list)
@@ -26,7 +22,7 @@ def find_primes_trial_division(input_list):
             primes.append(number)
     return primes
 
-@measure_time
+
 def find_primes_sieve(input_list):
     n = len(input_list)
     if n < 2:
