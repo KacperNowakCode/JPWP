@@ -1,9 +1,0 @@
-{
-  "tests": [
-    { "function": "read_file_readlines" },
-    { "function": "read_file_read" },
-    { "function": "read_file_line_by_line" },
-    { "function": "read_file_using_generator_expression" },
-    { "function": "read_file_mmap" }
-  ]
-}
