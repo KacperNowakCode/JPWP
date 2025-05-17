@@ -1,0 +1,7 @@
+{
+    "tests": [
+      { "function": "merge_sort_v1_recursive",       "size": 5000 },
+      { "function": "merge_sort_v2_iterative",       "size": 5000 },
+      { "function": "builtin_sort",                  "size": 5000 }
+    ]
+  }

@@ -1,0 +1,11 @@
+{
+  "tests": [
+    { "function": "bubble_sort",       "size": 5000 },
+    { "function": "quick_sort",        "size": 5000 },
+    { "function": "quick_sort_random", "size": 5000 },
+    { "function": "builtin_sort",      "size": 5000 },
+    { "function": "insertion_sort",    "size": 5000 },
+    { "function": "merge_sort",        "size": 5000 },
+    { "function": "heap_sort",         "size": 5000 }
+  ]
+}
