@@ -1,9 +1,5 @@
-from decorators import measure_time
-import os
 import random
 
-@measure_time
-#@measure_memory
 def bubble_sort(arr):
     """Sortowanie bąbelkowe O(n^2)"""
     n = len(arr)
@@ -12,8 +8,6 @@ def bubble_sort(arr):
             if arr[j] > arr[j + 1]:
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
 
-@measure_time
-#@measure_memory
 def quick_sort(arr):
     """In-place quicksort z losowym pivotem"""
     def partition(a, lo, hi):
@@ -37,14 +31,10 @@ def quick_sort(arr):
     _qs(arr, 0, len(arr) - 1)
     return arr
 
-@measure_time
-#@measure_memory
 def builtin_sort(arr):
     """Sortowanie wbudowane w Pythonie (Timsort)"""
     return sorted(arr)
 
-@measure_time
-#@measure_memory
 def insertion_sort(arr):
     """Sortowanie przez wstawianie O(n^2)"""
     for i in range(1, len(arr)):
@@ -55,8 +45,6 @@ def insertion_sort(arr):
             j -= 1
         arr[j + 1] = key
 
-@measure_time
-#@measure_memory
 def merge_sort(arr):
     """Sortowanie przez scalanie O(n log n)"""
     def _merge_sort(lst):
@@ -92,8 +80,6 @@ def merge_sort(arr):
     _merge_sort(arr)
     return arr
 
-@measure_time
-#@measure_memory
 def heap_sort(arr):
     """Sortowanie przez kopcowanie O(n log n)"""
     def heapify(a, n, i):
@@ -120,15 +106,3 @@ def heap_sort(arr):
         arr[0], arr[i] = arr[i], arr[0]
         heapify(arr, i, 0)
 
-        
-# @measure_time
-# @measure_memory
-# def read_large_file():
-#     """Test I/O: zapisz i wczytaj duży plik tekstowy"""
-#     filename = "testfile.txt"
-#     with open(filename, "w") as f:
-#         f.writelines("Some line of text\n" * 1000000)
-#     with open(filename, "r") as f:
-#         lines = f.readlines()
-#     os.remove(filename)
-#     return lines

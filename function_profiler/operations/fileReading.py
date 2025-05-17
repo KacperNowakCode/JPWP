@@ -1,4 +1,3 @@
-from decorators import measure_time
 import os
 
 FILENAME = "testfile.txt"
@@ -6,8 +5,7 @@ LINE = "Some line of text\n"
 LINE_COUNT = 10_000_000
 
 
-@measure_time
-#@measure_memory
+
 def read_file_readlines():
     """Odczyt pliku przez readlines() – całość do listy"""
     with open(FILENAME, "w") as f:
@@ -18,8 +16,7 @@ def read_file_readlines():
         os.remove(FILENAME)
     return lines
 
-@measure_time
-#@measure_memory
+
 def read_file_read():
     """Odczyt pliku przez read() – całość jako jeden string"""
     with open(FILENAME, "w") as f:
@@ -30,8 +27,6 @@ def read_file_read():
         os.remove(FILENAME)
     return data
 
-@measure_time
-#@measure_memory
 def read_file_line_by_line():
     """Odczyt linia po linii w pętli"""
     with open(FILENAME, "w") as f:
@@ -44,8 +39,7 @@ def read_file_line_by_line():
         os.remove(FILENAME)
     return lines
 
-@measure_time
-#@measure_memory
+
 def read_file_using_generator_expression():
     """Odczyt pliku za pomocą wyrażenia generatora"""
     with open(FILENAME, "w") as f:
@@ -56,8 +50,7 @@ def read_file_using_generator_expression():
         os.remove(FILENAME)
     return lines
 
-@measure_time
-#@measure_memory
+
 def read_file_mmap():
     """Odczyt z wykorzystaniem mmap (wydajny przy dużych plikach)"""
     import mmap
