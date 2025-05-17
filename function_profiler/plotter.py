@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import csv
-import json
 import seaborn as sns
 
 def plot_results(results, output_file=None):
@@ -34,8 +33,6 @@ def plot_results(results, output_file=None):
         plt.savefig(output_file, dpi=300, bbox_inches='tight')
     else:
         plt.show()
-
-
 
 
 def export_results(results, csv_file=None, html_file=None):

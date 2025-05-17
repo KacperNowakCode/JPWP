@@ -2,7 +2,7 @@ import argparse
 import time
 import random
 import asyncio
-from decorators import measure_time, measure_memory
+from decorators import measure_time
 from loader import FunctionLoader
 from plotter import plot_results, export_results
 

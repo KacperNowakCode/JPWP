@@ -4,7 +4,6 @@ def _merge_sort_v1_recursive_core(arr):
     """Core logic: Rekurencyjny Merge Sort (out-of-place), bez dekoratorów."""
 
     def _merge(left, right):
-        """Scalanie dwóch posortowanych list w jedną"""
         result = []
         i, j = 0, 0
         while i < len(left) and j < len(right):
@@ -41,7 +40,6 @@ def _merge_sort_v2_iterative_core(arr):
     """Core logic: Iteracyjny Merge Sort (out-of-place z pomocniczą tablicą), bez dekoratorów."""
 
     def _merge_transfer(src, dest, start, mid, end):
-        """Scalanie src[start...mid] i src[mid+1...end] do dest[start...end]"""
         i = start
         j = mid + 1
         for k in range(start, end + 1):
