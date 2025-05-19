@@ -1,5 +1,3 @@
-from decorators import measure_time
-
 def _merge_sort_v1_recursive_core(arr):
     """Core logic: Rekurencyjny Merge Sort (out-of-place), bez dekoratorów."""
 
@@ -29,7 +27,7 @@ def _merge_sort_v1_recursive_core(arr):
 
     return _merge(left_half, right_half)
 
-@measure_time
+
 def merge_sort_v1_recursive(arr):
     """Rekurencyjny Merge Sort (out-of-place), opakowany do profilowania."""
     arr_copy = list(arr)
@@ -76,14 +74,14 @@ def _merge_sort_v2_iterative_core(arr):
 
     return src
 
-@measure_time
+
 def merge_sort_v2_iterative(arr):
     """Iteracyjny Merge Sort (out-of-place z pomocniczą tablicą), opakowany do profilowania."""
     arr_copy = list(arr)
     return _merge_sort_v2_iterative_core(arr_copy)
 
 
-@measure_time
+
 def builtin_sort(arr):
     """Wbudowane sortowanie Pythona jako punkt odniesienia (Timsort)"""
     return sorted(arr)
