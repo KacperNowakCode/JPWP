@@ -96,7 +96,8 @@ class ProfilerGUI(tk.Tk):
 
 
             results[name] = elapsed_time
-            line = f"{name}: {elapsed_time:.2f} ms"
+            line = f"{name}: {elapsed_time:.2f} ms"+"\n"
+            self.text_area.insert(tk.END, line)
 
         if self.plot_var.get() and results:
             plot_results(results)
